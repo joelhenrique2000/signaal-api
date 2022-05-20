@@ -6,6 +6,183 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model Pais {
+  id        Int         @id @default(autoincrement())
+  sigla     String      @db.VarChar(2)
+  nome      String      @db.VarChar(100)
+  estados   Estado[]
+}
+
+model Estado {
+  id        Int         @id @default(autoincrement())
+  sigla     String      @db.VarChar(2)
+  nome      String      @db.VarChar(100)
+  cidades   Cidade[]
+
+  pais      Pais        @relation(fields: [paisId], references: [id])
+  paisId    Int
+}
+
+model Cidade {
+  id          Int         @id @default(autoincrement())
+  nome        String      @db.VarChar(100)
+  endereco    Endereco?
+
+  estado      Estado      @relation(fields: [estadoId], references: [id])
+  estadoId    Int
+}
+
+model Endereco {
+  id          Int         @id @default(autoincrement())
+  cep         String
+  usuario     Usuario?
+
+  cidade      Cidade      @relation(fields: [cidadeId], references: [id])
+  cidadeId    Int
+}
+
+model Nivel {
+  id                    Int         @id @default(autoincrement())
+  numeroNivel           Int         @unique
+  qtdPontosNecessario   Int         @unique
+  nomeNivel             String
+  usuario               Usuario?
+}
+
+model Arquivo {
+  id                    Int                   @id @default(autoincrement())
+  nomeOriginal          String
+  mimetype              String
+  caminho               String
+  fotoPerfil            FotoPerfil?
+  arquivoExercicio      ArquivoExercicio?
+  licaoIcone            LicaoIcone?
+}
+
+model FotoPerfil {
+  id                    Int                   @id @default(autoincrement())
+
+  arquivo               Arquivo               @relation(fields: [arquivoId], references: [id])
+  arquivoId             Int
+  usuario               Usuario               @relation(fields: [usuarioId], references: [id])
+  usuarioId             Int
+}
+
+model ArquivoExercicio {
+  id                    Int                   @id @default(autoincrement())
+  arquivo               Arquivo               @relation(fields: [arquivoId], references: [id])
+  arquivoId             Int
+  exercicio             Exercicio             @relation(fields: [exercicioId], references: [id])
+  exercicioId           Int
+}
+
+model LicaoIcone {
+  id                    Int                   @id @default(autoincrement())
+  arquivo               Arquivo               @relation(fields: [arquivoId], references: [id])
+  arquivoId             Int
+  licao                 Licao?
+}
+
+model Resposta {
+  id                    Int                   @id @default(autoincrement())
+  enunciado             String
+  isRespostaCerta       Boolean
+
+  exercicio              Exercicio            @relation(fields: [exercicioId], references: [id]) 
+  exercicioId            Int
+}
+
+model Exercicio {
+  id                    Int                   @id @default(autoincrement())
+  enunciado             String
+  qtdPontosGanho        Int
+  arquivoExercicio      ArquivoExercicio?
+  respostas             Resposta[]
+
+  licao                 Licao?                 @relation(fields: [licaoId], references: [id]) 
+  licaoId               Int?
+
+  usuarios              UsuariosOnExercicios[]
+
+}
+
+model Assunto {
+  id                    Int                   @id @default(autoincrement())
+  titulo                String
+  descricao             String
+
+  licao                 Licao                 @relation(fields: [licaoId], references: [id]) 
+  licaoId               Int
+}
+
+model Licao {
+  id                    Int                   @id @default(autoincrement())
+  titulo                String
+  descricao             String
+  exercicios            Exercicio[]
+  assuntos              Assunto[]
+
+  licaoIcone            LicaoIcone            @relation(fields: [licaoIconeId], references: [id]) 
+  licaoIconeId          Int
+}
+
+model UsuariosOnExercicios {
+  exercicio       Exercicio     @relation(fields: [exercicioId], references: [id])
+  exercicioId     Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+
+  isAcertou     Boolean
+  criadoEm              DateTime              @default(now())
+  atualizadoEm          DateTime              @updatedAt
+  removidoEm            DateTime
+
+  @@id([exercicioId, usuarioId])
+}
+
+model Role {
+  id                    Int                   @id @default(autoincrement())
+  nome                  String                @unique
+  nomeNormalizado       String                @unique
+  usuarios              UsuarioHasRole[]
+}
+
+
+model UsuarioHasRole {
+  role       Role     @relation(fields: [roleId], references: [id])
+  roleId     Int
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+
+  isAtivo     Boolean
+
+  @@id([roleId, usuarioId])
+}
+
+model Usuario {
+  id                    Int                   @id @default(autoincrement())
+  email                 String                @unique
+  dataNascimento        DateTime          
+  genero                String                @db.Char(1)
+  emailConfirmado       Boolean               @default(false)
+  primeiroNome          String                @db.VarChar(255)
+  segundoNome           String                @db.VarChar(255)
+  senha                 String                @db.VarChar(100)
+  slug                  String                @db.VarChar(30)
+  criadoEm              DateTime              @default(now())
+  atualizadoEm          DateTime              @updatedAt
+  removidoEm            DateTime
+  fotoPerfil            FotoPerfil?
+  exercicios            UsuariosOnExercicios[]
+  roles                 UsuarioHasRole[]
+
+  endereco              Endereco              @relation(fields: [enderecoId], references: [id]) 
+  enderecoId            Int
+  nivel                 Nivel                 @relation(fields: [nivelId], references: [id]) 
+  nivelId               Int
 }
