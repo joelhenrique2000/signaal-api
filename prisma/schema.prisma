@@ -8,7 +8,7 @@ generator client {
 datasource db {
   provider          = "mysql"
   url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+//   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Pais {
@@ -116,8 +116,8 @@ model Assunto {
   titulo                String
   descricao             String
 
-  licao                 Licao                 @relation(fields: [licaoId], references: [id]) 
-  licaoId               Int
+  licao                 Licao?                 @relation(fields: [licaoId], references: [id]) 
+  licaoId               Int?
 }
 
 model Licao {
@@ -127,8 +127,8 @@ model Licao {
   exercicios            Exercicio[]
   assuntos              Assunto[]
 
-  licaoIcone            LicaoIcone            @relation(fields: [licaoIconeId], references: [id]) 
-  licaoIconeId          Int
+  licaoIcone            LicaoIcone?            @relation(fields: [licaoIconeId], references: [id]) 
+  licaoIconeId          Int?
 }
 
 model UsuariosOnExercicios {

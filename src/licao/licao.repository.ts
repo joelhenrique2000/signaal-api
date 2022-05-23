@@ -11,11 +11,11 @@ export class LicaoRepository extends PrismaClient {
     }
 
     async findAll() {
-        return await this.role.findMany();
+        return await this.licao.findMany();
     }
 
     async findOne(id: number) {
-        return await this.role.findUnique({
+        return await this.licao.findUnique({
             where: { id },
         });
     }

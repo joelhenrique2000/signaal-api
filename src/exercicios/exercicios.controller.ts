@@ -10,7 +10,7 @@ import {
 import { ExerciciosService } from './exercicios.service';
 import { CreateExercicioDto, UpdateExercicioDto } from './exercicio.dto';
 
-@Controller('exercicios')
+@Controller('exercicio')
 export class ExerciciosController {
     constructor(private readonly exerciciosService: ExerciciosService) {}
 

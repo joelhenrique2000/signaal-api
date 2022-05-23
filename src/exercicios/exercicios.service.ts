@@ -5,6 +5,7 @@ import { ExercicioRepository } from './exercicios.repository';
 @Injectable()
 export class ExerciciosService {
     exercicioRepository: ExercicioRepository;
+
     constructor() {
         this.exercicioRepository = new ExercicioRepository();
     }

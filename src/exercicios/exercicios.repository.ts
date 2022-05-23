@@ -11,11 +11,11 @@ export class ExercicioRepository extends PrismaClient {
     }
 
     async findAll() {
-        return await this.role.findMany();
+        return await this.exercicio.findMany();
     }
 
     async findOne(id: number) {
-        return await this.role.findUnique({
+        return await this.exercicio.findUnique({
             where: { id },
         });
     }

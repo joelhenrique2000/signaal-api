@@ -5,6 +5,7 @@ import { LicaoRepository } from './licao.repository';
 @Injectable()
 export class LicaoService {
     exercicioRepository: LicaoRepository;
+
     constructor() {
         this.exercicioRepository = new LicaoRepository();
     }
