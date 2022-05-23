@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUsuarioDto } from './dto/create-usuario.dto';
-import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { CreateUsuarioDto, UpdateUsuarioDto } from './usuario.dto';
+import { UsuarioRepository } from './usuario.repository';
 
 @Injectable()
 export class UsuarioService {
-  create(createUsuarioDto: CreateUsuarioDto) {
-    return 'This action adds a new usuario';
-  }
+    usuarioRepository: UsuarioRepository;
 
-  findAll() {
-    return `This action returns all usuario`;
-  }
+    constructor() {
+        this.usuarioRepository = new UsuarioRepository();
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
-  }
+    create(createUsuarioDto: CreateUsuarioDto) {
+        createUsuarioDto.dataNascimento = new Date(
+            createUsuarioDto.dataNascimento,
+        );
 
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
-  }
+        return this.usuarioRepository.create(createUsuarioDto);
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
-  }
+    findAll() {
+        return this.usuarioRepository.findAll();
+    }
+
+    findOne(id: number) {
+        return this.usuarioRepository.findOne(id);
+    }
+
+    update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
+        return this.usuarioRepository.update(id, updateUsuarioDto);
+    }
+
+    remove(id: number) {
+        return this.usuarioRepository.remove(id);
+    }
 }

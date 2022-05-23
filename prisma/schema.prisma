@@ -8,7 +8,7 @@ generator client {
 datasource db {
   provider          = "mysql"
   url               = env("DATABASE_URL")
-//   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Pais {
@@ -175,8 +175,8 @@ model Usuario {
   senha                 String                @db.VarChar(100)
   slug                  String                @db.VarChar(30)
   criadoEm              DateTime              @default(now())
-  atualizadoEm          DateTime              @updatedAt
-  removidoEm            DateTime
+  atualizadoEm          DateTime?             @updatedAt
+  removidoEm            DateTime?
   fotoPerfil            FotoPerfil?
   exercicios            UsuariosOnExercicios[]
   roles                 UsuarioHasRole[]
