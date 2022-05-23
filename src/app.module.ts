@@ -14,9 +14,10 @@ import { PaisModule } from './pais/pais.module';
 import { EstadoModule } from './estado/estado.module';
 import { CidadeModule } from './cidade/cidade.module';
 import { EnderecoModule } from './endereco/endereco.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
-    imports: [ExerciciosModule, LicaoModule, NivelModule, AssuntoModule, RespostaModule, LicaoIconeModule, ArquivoExercicioModule, FotoPerfilModule, UsuarioModule, PaisModule, EstadoModule, CidadeModule, EnderecoModule],
+    imports: [ExerciciosModule, LicaoModule, NivelModule, AssuntoModule, RespostaModule, LicaoIconeModule, ArquivoExercicioModule, FotoPerfilModule, UsuarioModule, PaisModule, EstadoModule, CidadeModule, EnderecoModule, RoleModule],
     controllers: [AppController],
     providers: [AppService],
 })
