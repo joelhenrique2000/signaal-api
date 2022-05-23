@@ -1,21 +1,23 @@
+import { Mapper } from '@automapper/core';
+import { InjectMapper } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
-import { CreateUsuarioDto, UpdateUsuarioDto } from './usuario.dto';
+import { mapper } from 'src/mappings/mapper';
+import { CreateUsuarioDto, UpdateUsuarioDto, UsuarioDTO } from './usuario.dto';
+import { Usuario } from './usuario.entity';
 import { UsuarioRepository } from './usuario.repository';
 
 @Injectable()
 export class UsuarioService {
     usuarioRepository: UsuarioRepository;
 
-    constructor() {
+    constructor(@InjectMapper() private readonly mapper: Mapper) {
         this.usuarioRepository = new UsuarioRepository();
     }
 
-    create(createUsuarioDto: CreateUsuarioDto) {
-        createUsuarioDto.dataNascimento = new Date(
-            createUsuarioDto.dataNascimento,
-        );
+    create(usuario: Usuario) {
+        usuario.dataNascimento = new Date(usuario.dataNascimento);
 
-        return this.usuarioRepository.create(createUsuarioDto);
+        return this.usuarioRepository.create(usuario);
     }
 
     findAll() {

@@ -15,10 +15,31 @@ import { EstadoModule } from './estado/estado.module';
 import { CidadeModule } from './cidade/cidade.module';
 import { EnderecoModule } from './endereco/endereco.module';
 import { RoleModule } from './role/role.module';
+import { AutomapperModule } from '@automapper/nestjs';
+import { classes } from '@automapper/classes';
+import { UsuarioProfile } from './mappings/UsuarioProfile';
 
 @Module({
-    imports: [ExerciciosModule, LicaoModule, NivelModule, AssuntoModule, RespostaModule, LicaoIconeModule, ArquivoExercicioModule, FotoPerfilModule, UsuarioModule, PaisModule, EstadoModule, CidadeModule, EnderecoModule, RoleModule],
+    imports: [
+        AutomapperModule.forRoot({
+            strategyInitializer: classes(),
+        }),
+        ExerciciosModule,
+        LicaoModule,
+        NivelModule,
+        AssuntoModule,
+        RespostaModule,
+        LicaoIconeModule,
+        ArquivoExercicioModule,
+        FotoPerfilModule,
+        UsuarioModule,
+        PaisModule,
+        EstadoModule,
+        CidadeModule,
+        EnderecoModule,
+        RoleModule,
+    ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, UsuarioProfile],
 })
 export class AppModule {}
