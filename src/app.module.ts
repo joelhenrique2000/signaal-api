@@ -12,9 +12,10 @@ import { FotoPerfilModule } from './foto-perfil/foto-perfil.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { PaisModule } from './pais/pais.module';
 import { EstadoModule } from './estado/estado.module';
+import { CidadeModule } from './cidade/cidade.module';
 
 @Module({
-    imports: [ExerciciosModule, LicaoModule, NivelModule, AssuntoModule, RespostaModule, LicaoIconeModule, ArquivoExercicioModule, FotoPerfilModule, UsuarioModule, PaisModule, EstadoModule],
+    imports: [ExerciciosModule, LicaoModule, NivelModule, AssuntoModule, RespostaModule, LicaoIconeModule, ArquivoExercicioModule, FotoPerfilModule, UsuarioModule, PaisModule, EstadoModule, CidadeModule],
     controllers: [AppController],
     providers: [AppService],
 })
