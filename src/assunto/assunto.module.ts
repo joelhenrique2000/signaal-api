@@ -3,7 +3,7 @@ import { AssuntoService } from './assunto.service';
 import { AssuntoController } from './assunto.controller';
 
 @Module({
-  controllers: [AssuntoController],
-  providers: [AssuntoService]
+    controllers: [AssuntoController],
+    providers: [AssuntoService],
 })
 export class AssuntoModule {}

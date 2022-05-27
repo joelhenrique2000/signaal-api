@@ -3,18 +3,20 @@ import { ArquivoExercicioController } from './arquivo-exercicio.controller';
 import { ArquivoExercicioService } from './arquivo-exercicio.service';
 
 describe('ArquivoExercicioController', () => {
-  let controller: ArquivoExercicioController;
+    let controller: ArquivoExercicioController;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [ArquivoExercicioController],
-      providers: [ArquivoExercicioService],
-    }).compile();
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            controllers: [ArquivoExercicioController],
+            providers: [ArquivoExercicioService],
+        }).compile();
 
-    controller = module.get<ArquivoExercicioController>(ArquivoExercicioController);
-  });
+        controller = module.get<ArquivoExercicioController>(
+            ArquivoExercicioController,
+        );
+    });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+    it('should be defined', () => {
+        expect(controller).toBeDefined();
+    });
 });

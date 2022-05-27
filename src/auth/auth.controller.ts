@@ -8,7 +8,6 @@ export class AuthController {
 
     @Post('login')
     async login(@Body() req: any) {
-        console.log(req);
         return await this.authService.login(req);
     }
 }
