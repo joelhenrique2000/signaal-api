@@ -18,6 +18,7 @@ import { RoleModule } from './role/role.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { UsuarioProfile } from './mappings/UsuarioProfile';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -38,6 +39,7 @@ import { UsuarioProfile } from './mappings/UsuarioProfile';
         CidadeModule,
         EnderecoModule,
         RoleModule,
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [AppService, UsuarioProfile],

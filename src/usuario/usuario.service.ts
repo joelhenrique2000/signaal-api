@@ -8,9 +8,10 @@ import { UsuarioRepository } from './usuario.repository';
 
 @Injectable()
 export class UsuarioService {
-    usuarioRepository: UsuarioRepository;
-
-    constructor(@InjectMapper() private readonly mapper: Mapper) {
+    constructor(
+        private readonly usuarioRepository: UsuarioRepository,
+        @InjectMapper() private readonly mapper: Mapper,
+    ) {
         this.usuarioRepository = new UsuarioRepository();
     }
 
@@ -26,6 +27,14 @@ export class UsuarioService {
 
     findOne(id: number) {
         return this.usuarioRepository.findOne(id);
+    }
+
+    findOneByEmail(email: string) {
+        const usuario = this.usuarioRepository.findOneByEmail(email);
+
+        if (usuario === null) throw new Error('Email não localizado');
+
+        return usuario;
     }
 
     update(id: number, updateUsuarioDto: UpdateUsuarioDto) {

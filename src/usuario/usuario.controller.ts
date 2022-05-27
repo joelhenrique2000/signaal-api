@@ -8,23 +8,12 @@ import {
     Patch,
     Param,
     Delete,
-    UseInterceptors,
     UsePipes,
     ValidationPipe,
+    UseGuards,
 } from '@nestjs/common';
-import {
-    validate,
-    validateOrReject,
-    Contains,
-    IsInt,
-    Length,
-    IsEmail,
-    IsFQDN,
-    IsDate,
-    Min,
-    Max,
-} from 'class-validator';
-import { mapper } from 'src/mappings/mapper';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+
 import { CreateUsuarioDto, UpdateUsuarioDto, UsuarioDTO } from './usuario.dto';
 import { Usuario } from './usuario.entity';
 import { UsuarioService } from './usuario.service';
@@ -45,25 +34,31 @@ export class UsuarioController {
     }
 
     @Get()
+    @UseGuards(JwtAuthGuard)
     findAll() {
         return this.usuarioService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.usuarioService.findOne(+id);
+    findOne(@Param('id') id: number) {
+        return this.usuarioService.findOne(id);
+    }
+
+    @Get(':id')
+    findOneByEmail(@Param('id') email: string) {
+        return this.usuarioService.findOneByEmail(email);
     }
 
     @Patch(':id')
     update(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @Body() updateUsuarioDto: UpdateUsuarioDto,
     ) {
-        return this.usuarioService.update(+id, updateUsuarioDto);
+        return this.usuarioService.update(id, updateUsuarioDto);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.usuarioService.remove(+id);
+    remove(@Param('id') id: number) {
+        return this.usuarioService.remove(id);
     }
 }

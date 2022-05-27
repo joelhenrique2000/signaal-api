@@ -5,7 +5,11 @@ import {
     IsDate,
     IsString,
     IsAlphanumeric,
+    IsAlpha,
     IsIn,
+    IsInt,
+    Min,
+    Max,
 } from 'class-validator';
 
 export class UsuarioDTO {
@@ -29,24 +33,30 @@ export class UsuarioDTO {
     genero: 'F' | 'M';
 
     @AutoMap()
+    @IsAlpha()
     primeiroNome: string;
 
     @AutoMap()
+    @IsAlpha()
     segundoNome: string;
 
     @AutoMap()
     @IsAlphanumeric(null, {
-        message: 'A senha precisa ser alfanúmerica.',
+        message: 'A senha precisa ser alfa-númerica.',
     })
     senha: string;
 
     @AutoMap()
+    @IsAlpha()
     slug: string;
 
     @AutoMap()
+    @IsInt()
     enderecoId: number;
 
     @AutoMap()
+    @Min(1)
+    @Max(100)
     nivelId: number;
 }
 

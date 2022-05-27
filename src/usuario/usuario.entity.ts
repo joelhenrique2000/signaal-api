@@ -1,9 +1,29 @@
 import { AutoMap } from '@automapper/classes';
 
 export class Usuario {
-    // constructor(raw: any = {}) {
-    //     Object.assign(this, raw);
-    // }
+    constructor(
+        id: number,
+        email: string,
+        dataNascimento: string | Date,
+        genero: string,
+        primeiroNome: string,
+        segundoNome: string,
+        senha: string,
+        slug: string,
+        enderecoId?: number,
+        nivelId?: number,
+    ) {
+        this.id = id;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.genero = genero;
+        this.primeiroNome = primeiroNome;
+        this.segundoNome = segundoNome;
+        this.senha = senha;
+        this.slug = slug;
+        this.enderecoId = enderecoId;
+        this.nivelId = nivelId;
+    }
 
     @AutoMap()
     id: number;
@@ -23,7 +43,7 @@ export class Usuario {
     @AutoMap()
     segundoNome: string;
 
-    // @AutoMap()
+    @AutoMap()
     senha: string;
 
     @AutoMap()
