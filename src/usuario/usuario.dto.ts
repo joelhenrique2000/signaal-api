@@ -19,7 +19,7 @@ export class UsuarioDTO {
     email: string;
 
     @AutoMap()
-    @IsDate()
+    // @IsDate()
     dataNascimento: string | Date;
 
     @AutoMap()
@@ -33,21 +33,18 @@ export class UsuarioDTO {
     genero: 'F' | 'M';
 
     @AutoMap()
-    @IsAlpha()
+    // @IsAlpha()
     primeiroNome: string;
 
     @AutoMap()
-    @IsAlpha()
+    // @IsAlpha()
     segundoNome: string;
 
     @AutoMap()
-    @IsAlphanumeric(null, {
-        message: 'A senha precisa ser alfa-númerica.',
-    })
     senha: string;
 
     @AutoMap()
-    @IsAlpha()
+    // @IsAlpha()
     slug: string;
 
     @AutoMap()

@@ -16,9 +16,10 @@ export class UsuarioService {
         this.usuarioRepository = new UsuarioRepository();
     }
 
-    create(usuario: Usuario) {
-        usuario.dataNascimento = new Date(usuario.dataNascimento);
-
+    async create(usuario: Usuario) {
+        usuario.dataNascimento = new Date();
+        usuario.senha = await this.hashPassword(usuario.senha);
+        // usuario.dataNascimento = new Date(usuario.dataNascimento);
         return this.usuarioRepository.create(usuario);
     }
 
@@ -36,9 +37,7 @@ export class UsuarioService {
         return usuario;
     }
 
-    async login(loginDTO: { email: string; senha: string }) {
-        const { email, senha } = loginDTO;
-
+    async login({ email, senha }: Usuario) {
         const usuario = await this.findOneByEmail(email);
 
         if (!usuario) {
