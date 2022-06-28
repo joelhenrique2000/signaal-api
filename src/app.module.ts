@@ -19,6 +19,7 @@ import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { UsuarioProfile } from './mappings/UsuarioProfile';
 import { AuthModule } from './auth/auth.module';
+import { ResponderExercicioModule } from './responder-exercicio/responder-exercicio.module';
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { AuthModule } from './auth/auth.module';
             strategyInitializer: classes(),
         }),
         ExerciciosModule,
+        ResponderExercicioModule,
         LicaoModule,
         NivelModule,
         AssuntoModule,
@@ -40,6 +42,7 @@ import { AuthModule } from './auth/auth.module';
         EnderecoModule,
         RoleModule,
         AuthModule,
+        ResponderExercicioModule,
     ],
     controllers: [AppController],
     providers: [AppService, UsuarioProfile],

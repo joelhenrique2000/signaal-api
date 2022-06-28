@@ -34,7 +34,7 @@ export class UsuarioController {
     }
 
     @Get()
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     findAll() {
         return this.usuarioService.findAll();
     }

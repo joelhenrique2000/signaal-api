@@ -7,6 +7,7 @@ import {
     Param,
     Delete,
 } from '@nestjs/common';
+import { LicaoService } from 'src/licao/licao.service';
 import { Roles } from 'src/shared/decorator/roles.decorator';
 import { Role } from 'src/shared/enums/role.enum';
 import { CreateAssuntoDto, UpdateAssuntoDto } from './assunto.dto';
@@ -14,7 +15,10 @@ import { AssuntoService } from './assunto.service';
 
 @Controller('assunto')
 export class AssuntoController {
-    constructor(private readonly assuntoService: AssuntoService) {}
+    constructor(
+        private readonly assuntoService: AssuntoService,
+        private readonly licaoService: LicaoService,
+    ) {}
 
     @Post()
     @Roles(Role.Backoffice)
@@ -31,6 +35,13 @@ export class AssuntoController {
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.assuntoService.findOne(+id);
+    }
+
+    @Get(':id/licao')
+    async findLicaoByAssuntoId(@Param('id') id: number) {
+        const licoes = await this.licaoService.findAll();
+        return licoes.filter((licao) => licao.assuntoId === Number(id));
+        // return this.assuntoService.findOne(+id);
     }
 
     @Patch(':id')

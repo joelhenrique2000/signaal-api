@@ -20,6 +20,27 @@ export class ExercicioRepository extends PrismaClient {
         });
     }
 
+    async responder(isAcertou, exercicioId, usuarioId) {
+        await this.usuariosOnExercicios.create({
+            data: {
+                isAcertou,
+                exercicioId,
+                usuarioId,
+            },
+        });
+    }
+
+    async obterResposta(exercicioId, usuarioId) {
+        return await this.usuariosOnExercicios.findUnique({
+            where: {
+                exercicioId_usuarioId: {
+                    exercicioId,
+                    usuarioId,
+                },
+            },
+        });
+    }
+
     async update(id: number, updateExercicioDto: UpdateExercicioDto) {
         const exercicioAtualizado = await this.exercicio.update({
             where: { id },

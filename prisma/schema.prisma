@@ -31,7 +31,7 @@ model Estado {
 model Cidade {
   id          Int         @id @default(autoincrement())
   nome        String      @db.VarChar(100)
-  endereco    Endereco?
+  enderecos   Endereco[]
 
   estado      Estado      @relation(fields: [estadoId], references: [id])
   estadoId    Int
@@ -43,7 +43,7 @@ model Endereco {
   usuario     Usuario?
 
   cidade      Cidade      @relation(fields: [cidadeId], references: [id])
-  cidadeId    Int
+  cidadeId    Int          
 }
 
 model Nivel {
@@ -115,9 +115,8 @@ model Assunto {
   id                    Int                   @id @default(autoincrement())
   titulo                String
   descricao             String
+  licoes              Licao[]
 
-  licao                 Licao?                 @relation(fields: [licaoId], references: [id]) 
-  licaoId               Int?
 }
 
 model Licao {
@@ -125,7 +124,8 @@ model Licao {
   titulo                String
   descricao             String
   exercicios            Exercicio[]
-  assuntos              Assunto[]
+  assunto                 Assunto?                 @relation(fields: [assuntoId], references: [id]) 
+  assuntoId               Int?
 
   licaoIcone            LicaoIcone?            @relation(fields: [licaoIconeId], references: [id]) 
   licaoIconeId          Int?
@@ -140,7 +140,7 @@ model UsuariosOnExercicios {
   isAcertou     Boolean
   criadoEm              DateTime              @default(now())
   atualizadoEm          DateTime              @updatedAt
-  removidoEm            DateTime
+  removidoEm            DateTime?
 
   @@id([exercicioId, usuarioId])
 }
