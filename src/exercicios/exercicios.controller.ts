@@ -19,6 +19,11 @@ export class ExerciciosController {
         return this.exerciciosService.create(createExercicioDto);
     }
 
+    @Post(':id/responder')
+    async responder(@Param('id') id: string, @Body() dto: { pato: string }) {
+        return this.exerciciosService.responder(+id, dto);
+    }
+
     @Get()
     findAll() {
         return this.exerciciosService.findAll();
@@ -27,6 +32,11 @@ export class ExerciciosController {
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.exerciciosService.findOne(+id);
+    }
+
+    @Get(':id/ver_resposta')
+    verResposta(@Param('id') id: string) {
+        return this.exerciciosService.verReposta(+id);
     }
 
     @Patch(':id')

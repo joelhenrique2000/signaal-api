@@ -29,4 +29,12 @@ export class ExerciciosService {
     remove(id: number) {
         return this.exercicioRepository.remove(id);
     }
+
+    responder(exercicioId: number, corpo: any) {
+        return this.exercicioRepository.responder(true, exercicioId, 1);
+    }
+
+    verReposta(exercicioId: number) {
+        return this.exercicioRepository.obterResposta(exercicioId, 1);
+    }
 }

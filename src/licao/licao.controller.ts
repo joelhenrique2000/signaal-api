@@ -38,4 +38,24 @@ export class LicaoController {
     remove(@Param('id') id: string) {
         return this.licaoService.remove(+id);
     }
+
+    @Get(':id/quantidade_exercicios')
+    quantidadeExerciciosByLicaoId(@Param('id') id: string) {
+        return this.licaoService.quantidadeExerciciosByLicaoId(+id);
+    }
+
+    @Get(':id/quantidade_exercicios_respondidos')
+    quantidadeExerciciosRespondidosByLicaoId(@Param('id') id: string) {
+        return this.licaoService.quantidadeExerciciosRespondidosByLicaoId(+id);
+    }
+
+    @Get(':id/porcentagem_exercicios_respondidos')
+    porcentagemExerciciosRespondidosByLicaoId(@Param('id') id: string) {
+        return this.licaoService.porcentagemExerciciosRespondidosByLicaoId(+id);
+    }
+
+    @Get(':id/exercicio_disponivel')
+    exercicioDisponivel(@Param('id') id: string) {
+        return this.licaoService.exercicioDisponivelByLicaoId(+id);
+    }
 }
